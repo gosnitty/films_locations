@@ -17,5 +17,5 @@ function App() {
 
 ## Screenshots
 
-![App Screenshot](films_locations/blob/main/films_location_foto.jpg)
+![App Screenshot](https://github.com/gosnitty/films_locations/blob/main/films_location_foto.jpg)
 
