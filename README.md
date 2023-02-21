@@ -24,5 +24,5 @@ python3 films.py '1991' films.list 49.817545 24.023932
 
 ## Screenshots
 
-![App Screenshot](films_locations/blob/main/films_location_foto.jpg)
+![App Screenshot](films_location_foto.jpg)
 
