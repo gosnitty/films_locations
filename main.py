@@ -41,3 +41,45 @@ def coordinates(file):
             locations= (geolocator.geocode(file[i][-1]))
         coordinat.append([file[i][0],locations.latitude,locations.longitude])
     return coordinat
+
+def distance(file, latitude, longtitude):
+    '''
+    this function returns list with distance between coordinates
+    '''
+    distance_film = []
+    for i, elem in enumerate(file):
+        longt = file[i][-1]
+        lat = file[i][-2]
+        latitude, longtitude, longt, lat = map(radians, [latitude, longtitude, longt, lat])
+        lon_n = longt - longtitude
+        lat_n = lat - latitude
+        distance_n = 2* asin(sqrt(sin(lat_n/2)**2 + cos(latitude)\
+        * cos(lat) * sin(lon_n/2)**2))*6371
+        distance_film.append([distance_n,file[i]])
+    return sorted(distance_film)[:10]
+
+
+def filling_map(points, latitude, longtitude):
+    '''
+    this function returns the map with points of place where films where made
+    '''
+    films_map = folium.Map()
+    point_chosed = folium.FeatureGroup(name = 'Choosed point')
+    films_chossed = folium.FeatureGroup(name = 'Films')
+    films_map = folium.Map(tiles="Stamen Terrain",
+                    location=[latitude, longtitude],
+                    zoom_start=1)
+    point_chosed.add_child(folium.CircleMarker(location=[latitude, longtitude],
+                        popup = 'Chossed point',
+                        radius=10,
+                        fill_color='purple'))
+    films_map.add_child(point_chosed)
+    for i, elem in enumerate(points):
+        films_chossed.add_child(folium.Marker(location = points[i][1][1:],
+                                popup = points[i][1][0],
+                                icon=folium.Icon('purple')))
+    films_map.add_child(films_chossed)
+
+    films_map.add_child(folium.LayerControl())
+    films_map.save("Films_map.html")
+    return films_map
