@@ -14,3 +14,11 @@ def read_file(path):
     file = file.read().strip().split('\n')
     file = [i.split('\t') for i in file]
     return file[10:]
+
+def right_year(path, year):
+    '''
+    this function returns list with films of certain year
+    '''
+    file = [i for i in read_file(path) for j in i if year in j ]
+    return file
+
